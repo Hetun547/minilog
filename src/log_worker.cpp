@@ -157,8 +157,8 @@ bool log_writer::write(const std::filesystem::path& file_path, const char* log_d
 	fstream.open(file_path, std::ios::out | std::ios_base::app | std::ios_base::binary);
 	if (!fstream.is_open())
 		return false;
+	fstream << "thread: " << std::to_string(*(uint32_t*)&std::this_thread::get_id()) << "  ";
 	fstream << log_data;
-	fstream << " threadid: " << std::to_string(*(uint32_t*)&std::this_thread::get_id());
 	fstream.close();
 	return true;
 }

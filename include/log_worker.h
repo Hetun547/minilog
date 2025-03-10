@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include <string>
 #include <filesystem>
 #include <ctime>
@@ -27,18 +27,16 @@ public:
 	/// @param log_dir dir path for log
 	/// @param single_log_max_length 
 	/// @param out_time out_time_days
-	bool static init(const char* log_dir, uint32_t out_time = 7);
+	bool static init(const char* log_dir, uint32_t out_time = 0);
 
 	template <typename... Args>
 	void static write_log(const char* logger, LOG_LEVEL level,char* file_name, int log_line, const char* log_formation, Args...args);
 
+	static std::filesystem::path log_dir_path;
+	static int log_out_time_days;
 private:
 	void static push_log(std::tuple<const std::filesystem::path, const char*> log_data);
 
-private:
-	static std::filesystem::path log_dir_path;
-	static int log_out_time_days;
-	
 };
 
 template<typename ...Args>
